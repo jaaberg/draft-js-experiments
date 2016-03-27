@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import {Entity} from 'draft-js';
-import MentionDropdownOption from './MentionDropdownOption.js';
+import { Entity } from 'draft-js';
+import MentionDropdownOption from './MentionDropdownOption';
+import addMention from '../modifiers/addMention';
 
-class Dropdown extends Component {
+class MentionDropdown extends Component {
   state = {
     focusedOptionIndex: 0,
     isOpen: true
   };
 
   onMentionSelect = (mention) => {
-    //const selection = this.props.getEditorState().getSelection();
-    //const newEditorState = addMention(this.props.getEditorState(), mention, selection);
-    //this.props.updateEditorState(newEditorState);
-    console.log('Mention ' + mention + ' selected!');
+    const newEditorState = addMention(this.props.editorState, mention);
+    this.props.updateEditorState(newEditorState);
   };
 
   onMentionFocus = (index) => {
@@ -25,10 +24,11 @@ class Dropdown extends Component {
     var mentions = this.props.userEntityIds.map((userEntityId) => Entity.get(userEntityId).getData());
 
     return (
-      <div contenteditable={false} style={{position: 'absolute', backgroundColor: "white", border: '1px solid black'}}>
+      <div contentEditable={false} style={styles.root}>
         {mentions.map((mention, index) => {
           return (
             <MentionDropdownOption
+              key={ mention.name }
               onMentionSelect={ this.onMentionSelect }
               onMentionFocus={ this.onMentionFocus }
               mention={ mention }
@@ -41,4 +41,12 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown;
+const styles = {
+  root: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    border: '1px solid black'
+  }
+};
+
+export default MentionDropdown;

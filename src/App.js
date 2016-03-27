@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Draft from './Draft';
+import Draft from './components/Draft';
 
 export class App extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class MentionOption extends Component {
+class MentionOption extends Component {
 
   constructor(props) {
     super(props);
@@ -29,18 +29,27 @@ export default class MentionOption extends Component {
   };
 
   render() {
-    const className = this.props.isFocused ? {backgroundColor: "gray"} : {};
+    const style = this.props.isFocused ? styles.selected : {};
+    const { name } = this.props.mention;
+
     return (
       <div
-        className={ className }
         onMouseDown={ this.onMouseDown }
         onMouseUp={ this.onMouseUp }
         onMouseEnter={ this.onMouseEnter }
         role="option"
-        style={className}
+        style={ style }
         >
-        <span>{ this.props.mention.name }</span>
+        <span>{ name }</span>
       </div>
     );
   }
 }
+
+const styles = {
+  selected: {
+    backgroundColor: 'gray'
+  }
+};
+
+export default MentionOption;

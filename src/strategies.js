@@ -19,6 +19,6 @@ function findWithRegex(regex, contentBlock, callback) {
 }
 
 export default {
-  handleStrategy: handleStrategy,
-  hashtagStrategy: hashtagStrategy
+  handleStrategy,
+  hashtagStrategy
 };

@@ -1,5 +1,4 @@
 function getWordAt(string, position) {
-  // Perform type conversions.
   const str = String(string);
   const pos = Number(position) >>> 0;
 
@@ -12,19 +11,19 @@ function getWordAt(string, position) {
     return {
       word: str.slice(left),
       begin: left,
-      end: str.length,
+      end: str.length
     };
   }
 
-  // Return the word, using the located bounds to extract it from the string.
   return {
     word: str.slice(left, right + pos),
     begin: left,
-    end: right + pos,
+    end: right + pos
   };
-};
+}
 
-function getSearchText(editorState, selection) {
+function getSearchText(editorState) {
+  const selection = editorState.getSelection();
   const anchorKey = selection.getAnchorKey();
   const anchorOffset = selection.getAnchorOffset() - 1;
   const currentContent = editorState.getCurrentContent();
