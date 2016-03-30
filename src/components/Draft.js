@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Entity, CompositeDecorator, Editor, EditorState, RichUtils} from 'draft-js';
+import {Entity, CompositeDecorator, Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 import strategies from '../strategies';
 import MentionDropdown from './MentionDropdown';
 import getSearchText from '../utils/getSearchText';
@@ -59,6 +59,14 @@ class Draft extends Component {
     this.setState({editorState});
   };
 
+  logStateToConsole = () => {
+    console.log(this.state.editorState.getCurrentContent().toJS());
+  };
+
+  logRawStateToConsole = () => {
+    console.log(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())));
+  };
+
   render() {
     const { editorState } = this.state;
 
@@ -71,6 +79,10 @@ class Draft extends Component {
           <div>
             <Editor editorState={ editorState }
                     onChange={ this.onChange }/>
+          </div>
+          <div style={styles.logButtonRow}>
+            <button onClick={this.logStateToConsole}>Log state to console</button>
+            <button onClick={this.logRawStateToConsole}>Log RAW state to console</button>
           </div>
         </div>
       </div>
@@ -88,6 +100,9 @@ const styles = {
   },
   mention: {
     backgroundColor: 'red'
+  },
+  logButtonRow: {
+    marginTop: '20px'
   }
 };
 
