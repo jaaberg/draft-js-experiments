@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Entity, CompositeDecorator, Editor, EditorState, RichUtils} from 'draft-js';
 import strategies from '../strategies';
 import MentionDropdown from './MentionDropdown';
+import getSearchText from '../utils/getSearchText';
+import Hashtag from './Hashtag';
 
 const USER_ENTITIES = [
   Entity.create('MENTION', 'SEGMENTED', {name: 'Martin Midtsund'}),
@@ -16,14 +18,14 @@ class Draft extends Component {
   constructor(props) {
     super(props);
 
-    const MentionSpan = (props) => {
-      const typedText = props.children[0].props.text.substr(1);
-      const filteredEntityIds = this.getMentionsForFilter(typedText);
+    const Mention = (props) => {
+      const { word } = getSearchText(this.state.editorState);
+      const filteredEntityIds = this.getMentionsForFilter(word.slice(1));
 
       return (
-        <span>
-          <span { ...props }>{ props.children }</span>
-          <MentionDropdown { ...props }
+        <span style={styles.mention}>
+          <span {...props}>{props.children}</span>
+          <MentionDropdown
             userEntityIds={ filteredEntityIds }
             editorState={ this.state.editorState }
             updateEditorState={ this.onChange }/>
@@ -34,7 +36,10 @@ class Draft extends Component {
     const compositeDecorator = new CompositeDecorator([
       {
         strategy: strategies.handleStrategy,
-        component: MentionSpan
+        component: Mention
+      }, {
+        strategy: strategies.hashtagStrategy,
+        component: Hashtag
       }
     ]);
 

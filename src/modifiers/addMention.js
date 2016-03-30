@@ -39,4 +39,19 @@ const addMention = (editorState, mention) => {
   return EditorState.forceSelection(newEditorState, mentionReplacedContent.getSelectionAfter());
 };
 
+
+const styles = {
+  header: {
+    textAlign: 'center'
+  },
+  editor: {
+    margin: '50px auto 100px auto',
+    width: '400px'
+  },
+  mention: {
+    backgroundColor: 'red'
+  }
+};
+
+
 export default addMention;
