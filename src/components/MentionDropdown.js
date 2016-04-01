@@ -24,7 +24,7 @@ class MentionDropdown extends Component {
     var mentions = this.props.userEntityIds.map((userEntityId) => Entity.get(userEntityId).getData());
 
     return (
-      <div contentEditable={false} style={styles.root}>
+      <div contentEditable={false} style={styles.dropDown}>
         {mentions.map((mention, index) => {
           return (
             <MentionDropdownOption
@@ -43,9 +43,18 @@ class MentionDropdown extends Component {
 
 const styles = {
   root: {
+    position: 'relative'
+  },
+  dropDown: {
+    border: '1px solid grey',
+    display: 'inline-block',
     position: 'absolute',
+    minWidth: '180px',
+    borderRadius: '4px',
     backgroundColor: 'white',
-    border: '1px solid black'
+    boxShadow: '0px 4px 30px 0px rgba(220,220,220,1)',
+    top: '25px',
+    left: '0'
   }
 };
 

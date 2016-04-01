@@ -1,42 +1,21 @@
 import React, { Component } from 'react';
-import {Entity, CompositeDecorator, Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
+import {CompositeDecorator, Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 import strategies from '../strategies';
-import MentionDropdown from './MentionDropdown';
-import getSearchText from '../utils/getSearchText';
 import Hashtag from './Hashtag';
-
-const USER_ENTITIES = [
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Martin Midtsund'}),
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Osmund Maheswaran'}),
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Brynjar Rongved'}),
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Henrik Skifjeld'}),
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Jørgen Aaberg'}),
-  Entity.create('MENTION', 'SEGMENTED', {name: 'Marte Gjerdingen'})
-];
+import Mention from './Mention';
 
 class Draft extends Component {
   constructor(props) {
     super(props);
 
-    const Mention = (props) => {
-      const { word } = getSearchText(this.state.editorState);
-      const filteredEntityIds = this.getMentionsForFilter(word.slice(1));
-
-      return (
-        <span style={styles.mention}>
-          <span {...props}>{props.children}</span>
-          <MentionDropdown
-            userEntityIds={ filteredEntityIds }
-            editorState={ this.state.editorState }
-            updateEditorState={ this.onChange }/>
-        </span>
-      );
-    };
+    const MentionComponent = (props) => (
+      <Mention {...props} editorState={this.state.editorState} updateEditorState={this.onChange}/>
+    );
 
     const compositeDecorator = new CompositeDecorator([
       {
         strategy: strategies.handleStrategy,
-        component: Mention
+        component: MentionComponent
       }, {
         strategy: strategies.hashtagStrategy,
         component: Hashtag
@@ -47,13 +26,6 @@ class Draft extends Component {
       editorState: EditorState.createEmpty(compositeDecorator)
     };
   }
-
-  getMentionsForFilter = (filter) => {
-    return USER_ENTITIES.filter((entity) => {
-      const { name } = Entity.get(entity).getData();
-      return name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
-    });
-  };
 
   onChange = (editorState) => {
     this.setState({editorState});
@@ -97,9 +69,6 @@ const styles = {
   editor: {
     margin: '50px auto 100px auto',
     width: '400px'
-  },
-  mention: {
-    backgroundColor: 'red'
   },
   logButtonRow: {
     marginTop: '20px'

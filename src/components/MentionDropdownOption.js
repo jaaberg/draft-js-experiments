@@ -29,7 +29,7 @@ class MentionOption extends Component {
   };
 
   render() {
-    const style = this.props.isFocused ? styles.selected : {};
+    const style = this.props.isFocused ? styles.selected : styles.notSelected;
     const { name } = this.props.mention;
 
     return (
@@ -47,8 +47,12 @@ class MentionOption extends Component {
 }
 
 const styles = {
+  notSelected: {
+    padding: '5px'
+  },
   selected: {
-    backgroundColor: 'gray'
+    padding: '5px',
+    backgroundColor: '#def0f7'
   }
 };
 
