@@ -4,12 +4,12 @@ import MentionDropdown from './MentionSearchDropdown';
 import getSearchText from '../../utils/getSearchText';
 
 const USERS = [
-  {name: 'Martin Midtsund'},
-  {name: 'Osmund Maheswaran'},
-  {name: 'Brynjar Rongved'},
-  {name: 'Henrik Skifjeld'},
-  {name: 'Jørgen Aaberg'},
-  {name: 'Marte Gjerdingen'}
+  {name: 'Martin Midtsund', url: 'http://iterate.no/people#martin'},
+  {name: 'Osmund Maheswaran', url: 'http://iterate.no/people#osmund'},
+  {name: 'Brynjar Rongved', url: 'http://iterate.no/people#brynjar'},
+  {name: 'Henrik Skifjeld', url: 'http://iterate.no/people#henrik'},
+  {name: 'Jørgen Aaberg', url: 'http://iterate.no/people#jorgen'},
+  {name: 'Marte Gjerdingen', url: 'http://iterate.no/people#marte'}
 ];
 
 let Mention = (props) => {

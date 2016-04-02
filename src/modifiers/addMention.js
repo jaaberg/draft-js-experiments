@@ -2,8 +2,7 @@ import { Entity, Modifier, EditorState } from 'draft-js';
 import getSearchText from '../utils/getSearchText';
 
 const addMention = (editorState, mention) => {
-  const entityKey = Entity.create('mention', 'SEGMENTED', {mention});
-
+  const entityKey = Entity.create('MENTION', 'SEGMENTED', {name: mention.name, url: mention.url});
   const { begin, end } = getSearchText(editorState);
 
   const mentionTextSelection = editorState.getSelection().merge({
@@ -19,8 +18,6 @@ const addMention = (editorState, mention) => {
     entityKey
   );
 
-  // If the mention is inserted at the end, a space is appended right after for
-  // a smooth writing experience.
   const blockKey = mentionTextSelection.getAnchorKey();
   const blockSize = editorState.getCurrentContent().getBlockForKey(blockKey).getLength();
   if (blockSize === end) {

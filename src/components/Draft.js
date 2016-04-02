@@ -4,6 +4,7 @@ import strategies from '../strategies';
 import MentionSearch from './MentionSearch/MentionSearch';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
+import stateToMarkdown from '../utils/stateToMarkdown';
 
 class Draft extends Component {
   constructor(props) {
@@ -36,11 +37,11 @@ class Draft extends Component {
   };
 
   logStateToConsole = () => {
-    console.log(this.state.editorState.getCurrentContent().toJS());
+    console.log(this.state.editorState.toJS());
   };
 
-  logRawStateToConsole = () => {
-    console.log(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())));
+  logMarkdown = () => {
+    console.log(stateToMarkdown(this.state.editorState.getCurrentContent()));
   };
 
   render() {
@@ -58,7 +59,7 @@ class Draft extends Component {
           </div>
           <div style={styles.logButtonRow}>
             <button onClick={this.logStateToConsole}>Log state to console</button>
-            <button onClick={this.logRawStateToConsole}>Log RAW state to console</button>
+            <button onClick={this.logMarkdown}>Log markdown</button>
           </div>
         </div>
       </div>
