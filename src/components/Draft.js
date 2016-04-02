@@ -30,11 +30,20 @@ class Draft extends Component {
     this.state = {
       editorState: EditorState.createEmpty(compositeDecorator)
     };
+
+    this.handleKeyCommand = (command) => this._handleKeyCommand(command);
+    this.onChange = (editorState) => this.setState({editorState});
   }
 
-  onChange = (editorState) => {
-    this.setState({editorState});
-  };
+  _handleKeyCommand(command) {
+    const {editorState} = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return true;
+    }
+    return false;
+  }
 
   logStateToConsole = () => {
     console.log(this.state.editorState.toJS());
@@ -54,8 +63,9 @@ class Draft extends Component {
         </div>
         <div style={styles.editor}>
           <div>
-            <Editor editorState={ editorState }
-                    onChange={ this.onChange }/>
+            <Editor editorState={editorState}
+                    onChange={this.onChange}
+                    handleKeyCommand={this.handleKeyCommand}/>
           </div>
           <div style={styles.logButtonRow}>
             <button onClick={this.logStateToConsole}>Log state to console</button>
