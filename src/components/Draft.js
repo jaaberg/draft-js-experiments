@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {CompositeDecorator, Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 import strategies from '../strategies';
+import MentionSearch from './MentionSearch/MentionSearch';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
 
@@ -8,14 +9,17 @@ class Draft extends Component {
   constructor(props) {
     super(props);
 
-    const MentionComponent = (props) => (
-      <Mention {...props} editorState={this.state.editorState} updateEditorState={this.onChange}/>
+    const MentionSearchComponent = (props) => (
+      <MentionSearch {...props} editorState={this.state.editorState} updateEditorState={this.onChange}/>
     );
 
     const compositeDecorator = new CompositeDecorator([
       {
         strategy: strategies.handleStrategy,
-        component: MentionComponent
+        component: MentionSearchComponent
+      }, {
+        strategy: strategies.findMentionEntityStrategy,
+        component: Mention
       }, {
         strategy: strategies.hashtagStrategy,
         component: Hashtag

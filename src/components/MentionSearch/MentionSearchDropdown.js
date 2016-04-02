@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Entity } from 'draft-js';
-import MentionDropdownOption from './MentionDropdownOption';
-import addMention from '../modifiers/addMention';
+import MentionDropdownOption from './MentionSearchDropdownOption';
+import addMention from '../../modifiers/addMention';
 
 class MentionDropdown extends Component {
   state = {
@@ -21,19 +21,17 @@ class MentionDropdown extends Component {
   };
 
   render() {
-    var mentions = this.props.userEntityIds.map((userEntityId) => Entity.get(userEntityId).getData());
-
     return (
       <div contentEditable={false} style={styles.dropDown}>
-        {mentions.map((mention, index) => {
+        {this.props.filteredUsers.map((user, index) => {
           return (
             <MentionDropdownOption
-              key={ mention.name }
-              onMentionSelect={ this.onMentionSelect }
-              onMentionFocus={ this.onMentionFocus }
-              mention={ mention }
-              isFocused={ this.state.focusedOptionIndex === index }
-              index={ index }
+              key={user.name}
+              onMentionSelect={this.onMentionSelect}
+              onMentionFocus={this.onMentionFocus}
+              user={user}
+              isFocused={this.state.focusedOptionIndex === index}
+              index={index}
               />);
         })}
       </div>

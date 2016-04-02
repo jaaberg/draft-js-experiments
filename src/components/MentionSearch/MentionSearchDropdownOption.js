@@ -14,7 +14,7 @@ class MentionOption extends Component {
   onMouseUp = () => {
     if (this.mouseDown) {
       this.mouseDown = false;
-      this.props.onMentionSelect(this.props.mention);
+      this.props.onMentionSelect(this.props.user);
     }
   };
 
@@ -30,17 +30,17 @@ class MentionOption extends Component {
 
   render() {
     const style = this.props.isFocused ? styles.selected : styles.notSelected;
-    const { name } = this.props.mention;
+    const { name } = this.props.user;
 
     return (
       <div
-        onMouseDown={ this.onMouseDown }
-        onMouseUp={ this.onMouseUp }
-        onMouseEnter={ this.onMouseEnter }
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onMouseEnter={this.onMouseEnter}
         role="option"
-        style={ style }
+        style={style}
         >
-        <span>{ name }</span>
+        <span>{name}</span>
       </div>
     );
   }
