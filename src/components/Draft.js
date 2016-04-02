@@ -59,10 +59,10 @@ class Draft extends Component {
     return (
       <div>
         <div style={styles.header}>
-          <h1>Draft.js editor</h1>
+          <h1>A rich text editor</h1>
         </div>
-        <div style={styles.editor}>
-          <div>
+        <div style={styles.content}>
+          <div style={styles.editor}>
             <Editor editorState={editorState}
                     onChange={this.onChange}
                     handleKeyCommand={this.handleKeyCommand}/>
@@ -81,9 +81,13 @@ const styles = {
   header: {
     textAlign: 'center'
   },
-  editor: {
+  content: {
     margin: '50px auto 100px auto',
     width: '400px'
+  },
+  editor: {
+    padding: '5px',
+    border: '1px solid grey'
   },
   logButtonRow: {
     marginTop: '20px'
