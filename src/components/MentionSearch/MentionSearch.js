@@ -15,7 +15,7 @@ let Mention = (props) => {
             filteredUsers={filteredUsers}
             editorState={props.editorState}
             updateEditorState={props.updateEditorState}/>
-        </span>
+    </span>
   );
 };
 

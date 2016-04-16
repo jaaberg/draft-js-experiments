@@ -1,7 +1,7 @@
 import { Entity, Modifier, EditorState } from 'draft-js';
 import getSearchText from '../utils/getSearchText';
 
-const addEmoji = (editorState, mention) => {
+const addEmoji = (editorState, emojiShortName) => {
   const { begin, end } = getSearchText(editorState);
 
   const emojiTextSelection = editorState.getSelection().merge({

@@ -6,6 +6,8 @@ import Hashtag from './Hashtag';
 import Mention from './Mention';
 import stateToMarkdown from '../utils/stateToMarkdown';
 
+import 'draft-js/dist/Draft.css';
+
 class Draft extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +67,8 @@ class Draft extends Component {
           <div style={styles.editor}>
             <Editor editorState={editorState}
                     onChange={this.onChange}
-                    handleKeyCommand={this.handleKeyCommand}/>
+                    handleKeyCommand={this.handleKeyCommand}
+                    placeholder={'Write me something beautiful...'}/>
           </div>
           <div style={styles.logButtonRow}>
             <button onClick={this.logStateToConsole}>Log state to console</button>
