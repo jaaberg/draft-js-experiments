@@ -35,6 +35,7 @@ class Draft extends Component {
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.onChange = (editorState) => this.setState({editorState});
+    this.focus = () => this.refs.editor.focus();
   }
 
   _handleKeyCommand(command) {
@@ -64,11 +65,12 @@ class Draft extends Component {
           <h1>A rich text editor</h1>
         </div>
         <div style={styles.content}>
-          <div style={styles.editor}>
+          <div style={styles.editor} onClick={this.focus}>
             <Editor editorState={editorState}
                     onChange={this.onChange}
                     handleKeyCommand={this.handleKeyCommand}
-                    placeholder={'Write me something beautiful...'}/>
+                    placeholder={'Write me something beautiful...'}
+                    ref="editor"/>
           </div>
           <div style={styles.logButtonRow}>
             <button onClick={this.logStateToConsole}>Log state to console</button>
